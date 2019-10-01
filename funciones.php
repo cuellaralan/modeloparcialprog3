@@ -4,13 +4,16 @@ class Funciones
 {
     public static function Listar($archivo)
     {
-        $ar = fopen($archivo,"r");  
-        $miarray = array();
-        while(!feof($ar))
+        $miarray = array(); 
+        if(file_exists($archivo))
         {
-            array_push($miarray,json_decode(fgets($ar))); 
+            $ar = fopen($archivo,"r"); 
+            while(!feof($ar))
+            {
+                array_push($miarray,json_decode(fgets($ar))); 
+            }
+            fclose($ar);            
         }
-        fclose($ar);
     return ($miarray);
     }
 
@@ -50,12 +53,18 @@ class Funciones
         return $ext;
     }
 
-    public static function GuardaTemp2($origen,$destino,$nomarch,$legajo)
+    public static function GuardaTemp2($archivo,$directorio,$idConcat)
     {
-        $extension = funciones::obtengoExt($nomarch);
-        $path= $destino.$legajo.$extension;
-        move_uploaded_file($origen,$path);
-        return $path;
+        setlocale(LC_TIME,"es_RA");
+        $fecha = date("Y-m-d");
+        $hora = date("H-i-s");
+        // $extension = funciones::obtengoExt($nomarch);
+        $extension = pathinfo($archivo->getClientFilename(), PATHINFO_EXTENSION);
+        // $path= $destino.$idConcat.$extension;
+        $filename = $idConcat.'_'.$fecha.';'.$hora.'.'.$extension;
+        $archivo->moveTo($directorio . DIRECTORY_SEPARATOR . $filename);
+        // move_uploaded_file($origen,$path);
+        return $filename;
     }
 }
 

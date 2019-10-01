@@ -1,0 +1,5 @@
+{"_patente":"poi765","_fecha":"30\/09\/2019","_marca":"audi","_modelo":"a3","_precio":"546799","_tpoServicio":"standard"}
+{"_patente":"cc654fr","_fecha":"01\/10\/2019","_marca":"volvo","_modelo":"xc90","_precio":"3776799","_tpoServicio":"standard"}
+{"_patente":"bg990kj","_fecha":"01\/10\/2019","_marca":"audi","_modelo":"a4","_precio":"1546799","_tpoServicio":"standard"}
+{"_patente":"al997tg","_fecha":"01\/10\/2019","_marca":"peugeot","_modelo":"308","_precio":"567809","_tpoServicio":"standard"}
+{"_patente":"bx234rt","_fecha":"01\/10\/2019","_marca":"audi","_modelo":"a5","_precio":"3546780","_tpoServicio":"standard"}
