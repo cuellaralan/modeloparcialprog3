@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "defcd139-7589-4665-b38f-2e99d6bb945d",
+		"name": "modeloparcial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cargarVehiculo/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "marca",
+							"value": "audi",
+							"type": "text"
+						},
+						{
+							"key": "modelo",
+							"value": "a5",
+							"type": "text"
+						},
+						{
+							"key": "patente",
+							"value": "bx234rt",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "3546780",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1/modeloparcialprog3/cargarVehiculo/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"modeloparcialprog3",
+						"cargarVehiculo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consultarVehiculo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1/modeloparcialprog3/consultarVehiculo/?marca=audi&patente&modelo",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"modeloparcialprog3",
+						"consultarVehiculo",
+						""
+					],
+					"query": [
+						{
+							"key": "marca",
+							"value": "audi"
+						},
+						{
+							"key": "patente",
+							"value": ""
+						},
+						{
+							"key": "modelo",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cargarTipoServicio/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "nombre",
+							"value": "servicio2",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "20.000km",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "2500",
+							"type": "text"
+						},
+						{
+							"key": "demora",
+							"value": "4días",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1/modeloparcialprog3/cargarTipoServicio/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"modeloparcialprog3",
+						"cargarTipoServicio",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

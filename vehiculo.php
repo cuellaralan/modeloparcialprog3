@@ -71,7 +71,6 @@ class Vehiculo
     {
         $archivo = 'vehiculos.txt';
         $vehiculos = funciones::Listar($archivo);
-        // var_dump($vehiculos);
         $existe = false;
         if(isset($vehiculos))
         {
@@ -79,14 +78,23 @@ class Vehiculo
             {
                 if(isset($value->_patente))
                 {
+                    // echo($patente);
+                    // var_dump($value);
                     if($value->_patente == $patente)
                     {
                         $existe = true;
                         $vehaux = new Vehiculo($value->_marca,$value->_modelo, $value->_patente,$value->_precio, '');
+                        echo('</br> patente encontrada </br>');
+                        var_dump($vehaux);
                     }   
                 }
             }
         }
+        else
+        {
+            echo('</br> Listado vacío </br>');
+        }
+        
         if($existe == false)
         {
             return 'no existe patente';
@@ -134,50 +142,78 @@ class Vehiculo
 
     public static function modificarVehiculo($patente,$marca,$modelo,$precio,$foto)
     {
-        $vehiculo = vehiculo::buscarXpatente($patente);
-        if(isset($vehiculo)&& $vehiculo != 'no existe patente')
-        {
-            echo 'path foto: '.$foto.'<br/>';
-            $vehiculo->modificaDatos($marca,$modelo,$precio,$foto);
-            $vehiculo->insertaEnArchivo();
-
-        }
-    }
-
-    private function modificaDatos($marca,$modelo,$precio,$foto)
-    {
-        $this->_marca = $marca;
-        $this->_modelo = $modelo;
-        $this->_precio = $precio;
-        $this->_foto = $foto;
-    }
-
-    private function insertaEnArchivo()
-    {
         $archivo = 'vehiculos.txt';
-        $lVehiculos = funciones::Listar($archivo);
+        $arrayVeh = funciones::Listar($archivo);
         $primero = true;
-        foreach($lVehiculos as $key => $value)
+        foreach($arrayVeh as $key => $value)
         {
-            if($value->_patente == $this->_patente)
+            if($value->_patente == $patente)
             {
-                $value->_patente = $this->_patente;
-                $value->_marca = $this->_marca;
-                $value->_modelo = $this->_modelo;
-                $value->_precio = $this->_precio;
-                $value->_foto = $this->_foto;
+                vehiculo::modificaDatos($value,$marca,$modelo,$precio,$foto);
+               
             }
+            vehiculo::insertaEnArchivo($value,$primero,$archivo);
+            $primero = false;
+        }
+        
+        // }
+    }
+
+    public static function modificaDatos($vehiculo,$marca,$modelo,$precio,$foto)
+    {
+        $vehiculo->_marca = $marca;
+        $vehiculo->_modelo = $modelo;
+        $vehiculo->_precio = $precio;
+        $vehiculo->_foto = $foto;
+    }
+
+    public static function insertaEnArchivo($vehiculo,$primero,$archivo)
+    {
             if($primero == true)
             {
                 $primero = false;
-                funciones::Guardar($value,$archivo,'w');
-                echo 'primer guardado'.'<br/>';
+                funciones::Guardar($vehiculo,$archivo,'w');
+                
             }
             else{
-                echo 'segundo guardado'.'<br/>';
-                funciones::Guardar($value,$archivo,'a');
-            }
+                funciones::Guardar($vehiculo,$archivo,'a');
+            }        
+    }
+
+    public static function mostrarTabla()
+    {
+        $archivo = 'vehiculos.txt';
+        $vehiculos = funciones::Listar($archivo);
+        // var_dump($vehiculos);
+        //titulos tabla
+        ?> 
+        <table>
+        <th>Patente</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Precio</th>
+        <th>Imagen</th>
+        <?php
+
+        foreach($vehiculos as $key => $value)
+        {
+            $tagFoto = './foto/'.$value->_foto;
+            ?><tr>
+            <td> <?php echo($value->_patente) ?> </td>
+            <td> <?php echo($value->_marca) ?> </td>
+            <td> <?php echo($value->_modelo) ?> </td>
+            <td> <?php echo($value->_precio) ?> </td>  
+            <td>
+            <img src='<?php echo($tagFoto)?>' alt="Foto-Patente" height="60" width="60"/>
+            </td>  
+            </tr>
+            <?php
         }
+        ?> 
+        </table> 
+        <?php
+        
+
     }
 }
 ?>

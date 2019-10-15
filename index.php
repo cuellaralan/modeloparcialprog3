@@ -128,35 +128,47 @@ $app->get('/inscripciones[/]', function(Request $request, Response $response){
 
 $app->post('/modificarVehiculo[/]', function (Request $request, Response $response) {
     $arrayParam = $request->getParsedBody();
+    var_dump($arrayParam);
     $patente = $arrayParam['patente'];
     $marca = $arrayParam['marca'];
     $modelo = $arrayParam['modelo'];
     $precio = $arrayParam['precio'];
-
+    $vehiculo = vehiculo::buscarXpatente($patente);
+    // echo($vehiculo);
+    //directorio imagenes del servidor 
     $directory = $this->get('upload_directory');
-    echo('uploadFiles'.$directory.'<br/>');
+    // echo('uploadFiles'.$directory.'<br/>');
     //obtengo archivos
     $uploadedFiles = $request->getUploadedFiles();
     //una foto
     $unFile = $uploadedFiles['foto'];
-    // handle single input with single file upload
-    // echo('uploadFiles'.'<br/>');
-    // var_dump($uploadedFiles);
-    // echo('<br/>');
+    //path de archivo temporal
+    $origen = $uploadedFiles["foto"]->file;
 
-    $origen = $uploadedFiles["foto"]->file;//path de archivo temporal
-    // $extension = pathinfo($uploadedFiles["foto"]->getClientFilename(), PATHINFO_EXTENSION);//extension
-    if ($unFile->getError() === UPLOAD_ERR_OK) {
-        // $filename = moveUploadedFile($directory, $uploadedFile);
-        // $response->write('uploaded ' . $filename . '<br/>');
-        // funciones::GuardaTemp2($origen,'./foto',$extension,$patente);
-        $path = funciones::GuardaTemp2($unFile,$directory,$patente);
-        vehiculo::modificarVehiculo($patente,$marca,$modelo,$precio,$path);
+    
+    if(isset($vehiculo)&& $vehiculo != 'no existe patente')
+    {
+        var_dump($vehiculo);
+        if ($unFile->getError() === UPLOAD_ERR_OK) {
+            $path = funciones::GuardaTemp2($unFile,$directory,$patente);
+            vehiculo::modificarVehiculo($patente,$marca,$modelo,$precio,$path);
+            echo('</br> ***modificado***');
+            $resutl = '***vehiculo modificado***';
+            $newResponse = $response->withJson($resutl,200);
+        }
     }
-    // $mVehiculo = new Vehiculo($marca,$modelo,$patente,$precio);
-    // $pServicio->guardarServicio($pServicio);
-    // $newResponse = $response->withJson($arrayParam,200);
-     return $response;
+    else{
+        $resutl = 'no existe patente';
+        $newResponse = $response->withJson($resutl,200);
+    }
+     return $newResponse;
+});
+
+$app->get('/vehiculos[/]', function(Request $request, Response $response){
+    vehiculo::mostrarTabla();
+    // $newResponse = $result->withJson($result,200);
+    return $response;
+
 });
 
 $app->run();

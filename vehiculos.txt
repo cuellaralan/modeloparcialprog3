@@ -1,1 +1,2 @@
-{"_marca":"fiat","_modelo":"punto","_patente":"jkh654","_precio":"298765","_foto":""}
+{"_marca":"peugeot","_modelo":"207","_patente":"jkh654","_precio":"209543","_foto":"jkh654_2019-10-15;01-25-11.png"}
+{"_marca":"renault","_modelo":"9","_patente":"af345ju","_precio":"111222","_foto":"af345ju_2019-10-15;00-56-23.png"}

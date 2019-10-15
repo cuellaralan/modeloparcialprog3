@@ -8,9 +8,13 @@ class Funciones
         if(file_exists($archivo))
         {
             $ar = fopen($archivo,"r"); 
-            while(!feof($ar))
+            while(!feof($ar) )
             {
-                array_push($miarray,json_decode(fgets($ar))); 
+                $linea = fgets($ar);
+                if(!empty($linea)) 
+                {
+                    array_push($miarray,json_decode($linea)); 
+                }
             }
             fclose($ar);            
         }
@@ -54,7 +58,7 @@ class Funciones
     }
 
     public static function GuardaTemp2($archivo,$directorio,$idConcat)
-    {
+    {       
         setlocale(LC_TIME,"es_RA");
         $fecha = date("Y-m-d");
         $hora = date("H-i-s");
